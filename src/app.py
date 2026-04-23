@@ -11,4 +11,9 @@ def create_item(item:Item):
         "INSERT INTO items (name, price, is_offer) VALUES (?, ?, ?)", (item.name, item.price, int(item.is_offer) if item.is_offer else None), )
     conn.commit()
     item.id = cursor.lastrowid
-    return item
+@app.delete("/items/{item_id}")
+def delete_item(item_id:int):
+    conn = get_db()
+    conn.execute("delete from items where id= ?", (item_id,))
+    conn.commit()
+    return{"message": "item deleted"}
