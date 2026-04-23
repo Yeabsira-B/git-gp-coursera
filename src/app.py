@@ -13,6 +13,19 @@ def create_item(item:Item):
     item.id = cursor.lastrowid
 @app.delete("/items/{item_id}")
 def delete_item(item_id:int):
+    """
+    API route to delete an item from the database.
+
+    Parameters
+    ----------
+    item_id : int
+        The id of the item to be deleted.
+
+    Returns
+    -------
+    dict
+        A message indicating the deletion was successful.
+    """
     conn = get_db()
     conn.execute("delete from items where id= ?", (item_id,))
     conn.commit()
